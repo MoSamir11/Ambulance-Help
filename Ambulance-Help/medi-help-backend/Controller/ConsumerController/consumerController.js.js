@@ -109,7 +109,6 @@ exports.consumerLogin = async (req, res) => {
 
 exports.deleteConsumer = async (req, res, next) => {
   var id = req.body.id;
-  console.log(id);
   const deleteResponse = await consumer.deleteOne({ _id: id });
   if (deleteResponse) {
     res.send({

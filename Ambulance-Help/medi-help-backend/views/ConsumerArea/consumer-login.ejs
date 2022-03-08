@@ -64,7 +64,7 @@
            var otp = $("#otp").val();
            var data = {name:name,email:email,phone:phone,otp:otp};
            $.ajax({
-               url:'/consumer-loin',
+               url:'/consumer-login',
                type:"POST",
                data: data,
                success: function(res){
