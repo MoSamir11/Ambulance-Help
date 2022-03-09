@@ -8,6 +8,7 @@ const upload = require("../middleware/upload");
 const { token } = require("morgan");
 const nodemailer = require("nodemailer");
 const ConsumerController = require("../Controller/ConsumerController/consumerController.js");
+const AdminController = require("../Controller/AdminController/AdminController");
 const consumer = require("../modal/consumer/consumer");
 /* GET home page. */
 
@@ -28,8 +29,13 @@ router.get("/all-consumer", async function (req, res, next) {
   res.render(".././views/ConsumerArea/AllCustomers", { product: users });
 });
 
+router.get("/admin-signup", async function (req, res, next) {
+  res.render(".././views/AdminArea/adminSignup");
+});
+
 router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
 router.post("/delete-consumer", ConsumerController.deleteConsumer);
+router.post("/admin-signup", AdminController.adminSignup);
 
 module.exports = router;

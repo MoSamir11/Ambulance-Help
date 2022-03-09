@@ -13,7 +13,7 @@ var app = express();
 // monodb
 mongoose
   .connect(
-    "mongodb+srv://steptosoft:G3imJS0Nm9kTR90F@cluster0.kxjki.mongodb.net/crud_database?retryWrites=true&w=majority",
+    "mongodb+srv://Samir:GPRznBlAswOCaY45@cluster0.4tu04.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
