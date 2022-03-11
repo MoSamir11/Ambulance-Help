@@ -8,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
     <title>Admin Signup</title>
 </head>
@@ -45,7 +44,7 @@
                         <label for="exampleInputPassword1" class="form-label">Password:</label>
                         <input type="text" class="form-control" id="password">
                     </div>
-                    <button type="button" class="btn btn-primary submit" value="get Lat&Long" >Submit</button>
+                    <button type="button" class="btn btn-primary submit" onclick="getLocation()" >Submit</button>
                 </form>
             </div>
             <div class="col-lg-3"></div>
@@ -53,40 +52,50 @@
     </div>
 </body>
 <script type="text/javascript">
-   $(document).ready(function(){
-       $(document).on('click','.submit',function(){
-           var x = document.getElementById("demo");
-            var geocoder =  new google.maps.Geocoder();
-            geocoder.geocode( { 'address': $('#city').val()}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                $('#demo').text("location : " + results[0].geometry.location.lat() + " " +results[0].geometry.location.lng()); 
-            } else {
-                $('#demo').text("Something got wrong " + status);
-                }
-            });
-           var name = $("#name").val();
-           var email = $("#email").val();
-           var phone = $("#phone").val();
-           var address = $("#address").val();
-           var pin = $("#pin").val();
-           var password = $("#password").val();
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+//    $(document).ready(function(){
+//        $(document).on('click','.submit',function(){
+//            var x = document.getElementById("demo");
+//             var geocoder =  new google.maps.Geocoder();
+//             geocoder.geocode( { 'address': $('#city').val()}, function(results, status) {
+//             if (status == google.maps.GeocoderStatus.OK) {
+//                 $('#demo').text("location : " + results[0].geometry.location.lat() + " " +results[0].geometry.location.lng()); 
+//             } else {
+//                 $('#demo').text("Something got wrong " + status);
+//                 }
+//             });
+//            var name = $("#name").val();
+//            var email = $("#email").val();
+//            var phone = $("#phone").val();
+//            var address = $("#address").val();
+//            var pin = $("#pin").val();
+//            var password = $("#password").val();
            
-            var data = {name:name,email:email,phone:phone,address:address,pin:pin,password:password,longitude:longitude,latitude:latitude};
-           console.log("data-->",data);
-        //    $.ajax({
-        //        url:'/consumer-signup',
-        //        type:"POST",
-        //        data:data,
-        //         success: function(res){
-        //             if(res.success){
-        //                 alert(res.success);
-        //             }else{
-        //                 alert(res.error)
-        //             }
-        //         }
-        //    })
-       })
-   })
+//             var data = {name:name,email:email,phone:phone,address:address,pin:pin,password:password};
+//            console.log("data-->",data);
+//            $.ajax({
+//                url:'/admin-signup',
+//                type:"POST",
+//                data:data,
+//                 success: function(res){
+//                     if(res.success){
+//                         alert(res.success);
+//                     }else{
+//                         alert(res.error)
+//                     }
+//                 }
+//            })
+//        })
+//    })
 </script>
 
 </html>
