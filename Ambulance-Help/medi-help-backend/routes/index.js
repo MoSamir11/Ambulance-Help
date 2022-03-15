@@ -15,6 +15,7 @@ var cors = require('cors')
 router.use(cors());
 
 const consumer = require("../modal/consumer/consumer");
+const admin = require("../modal/Admin/admin");
 /* GET home page. */
 
 router.get("/", function (req, res, next) {
@@ -38,9 +39,16 @@ router.get("/admin-signup", async function (req, res, next) {
   res.render(".././views/AdminArea/adminSignup");
 });
 
+router.get('/all-admin',async function(req,res){
+  const adminData = await admin.find({});
+  res.render(".././views/AdminArea/allAdmin",{admin:adminData});
+  // res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
+})
+
 router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
 router.post("/delete-consumer", ConsumerController.deleteConsumer);
 router.post("/admin-signup", AdminController.adminSignup);
+router.post("/delete-admin", AdminController.deleteAdmin);
 router.post("/add-ambulance", AmbulanceController.addAmbulance);
 module.exports = router;

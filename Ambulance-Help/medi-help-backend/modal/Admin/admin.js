@@ -13,7 +13,7 @@ const adminSignupSchema = new Schema({
     default: null,
   },
   email: {
-    type: Number,
+    type: String,
     required: true,
     default: null,
   },
