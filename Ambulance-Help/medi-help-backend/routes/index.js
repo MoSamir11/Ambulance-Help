@@ -9,6 +9,11 @@ const { token } = require("morgan");
 const nodemailer = require("nodemailer");
 const ConsumerController = require("../Controller/ConsumerController/consumerController.js");
 const AdminController = require("../Controller/AdminController/AdminController");
+const AmbulanceController = require("../Controller/AdminController/AmbulanceController");
+var cors = require('cors')
+
+router.use(cors());
+
 const consumer = require("../modal/consumer/consumer");
 /* GET home page. */
 
@@ -37,5 +42,5 @@ router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
 router.post("/delete-consumer", ConsumerController.deleteConsumer);
 router.post("/admin-signup", AdminController.adminSignup);
-
+router.post("/add-ambulance", AmbulanceController.addAmbulance);
 module.exports = router;
