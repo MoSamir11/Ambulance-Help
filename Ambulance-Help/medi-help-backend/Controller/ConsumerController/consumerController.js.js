@@ -11,8 +11,8 @@ var myOtp = 135;
 exports.consumerSignup = async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
   console.log(data);
-  // const isUsrExist = await consumer.findOne({ email: data.email });
-  if (!data.otp) {
+  const isUsrExist = await consumer.findOne({ phone: data.phone });
+  if (!data.otp && isUsrExist) {
     myOtp = Math.floor(Math.random() * 10000);
     console.log("27-->", myOtp);
     client.messages
@@ -23,8 +23,17 @@ exports.consumerSignup = async (req, res) => {
       })
       .then((message) => {
         console.log("Message sent !");
+        res.send({
+          isSuccess:true,
+          message:"An OTP has sent to your mobile"
+        })
       })
-      .catch((err) => console.log("Message not sent", err));
+      .catch((err) => {
+        console.log("Message not sent", err)
+        res.send({
+          message:"An OTP has sent to your mobile"
+        })
+      });
   } else if (data.otp) {
     console.log("39 data-->", data);
     console.log("otp-->", myOtp);
@@ -56,13 +65,18 @@ exports.consumerSignup = async (req, res) => {
     } else {
       res.send({ error: true, message: "OTP not matches" });
     }
+  }else{
+    res.send({
+      message: "User not found"
+    })
   }
 };
 
 exports.consumerLogin = async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
-  console.log(data);
-  if (!data.otp) {
+  const isUserExist = await consumer.findOne({phone:data.phone})
+  console.log(data );
+  if (isUserExist && !data.otp) {
     myOtp = Math.floor(Math.random() * 10000);
     console.log("27-->", myOtp);
     client.messages
@@ -73,18 +87,27 @@ exports.consumerLogin = async (req, res) => {
       })
       .then((message) => {
         console.log("Message sent !");
+        res.send({
+          isSuccess:true,
+          message:"An OTP has sent to your mobile"
+        })
       })
-      .catch((err) => console.log(err));
-  } else {
+      .catch((err) => {
+        console.log(err)
+        res.send({
+          isSuccess:true,
+          message:"An OTP has sent to your mobile"
+        })
+      });
+  } else if(isUserExist && data.otp){
     const data = req.body;
-    console.log("data-->", data);
+    console.log("104 data-->", data);
     const userExist = await consumer.findOne({ phone: data.phone });
     await jwt.sign(
       {
         user: {
           id: userExist._id,
-          name: userExist.name,
-          phone: userExist.phone,
+          name:userExist.name
         },
       },
       "mysecret",
@@ -97,11 +120,17 @@ exports.consumerLogin = async (req, res) => {
         } else {
           res.cookie("customer", token);
           res.send({
-            success: "login success",
+            isSuccess:true,
+            message: "login success",
           });
         }
       }
     );
+  }else if(!isUserExist)
+  {
+    res.send({
+      message:"User not found"
+    })
   }
 };
 
