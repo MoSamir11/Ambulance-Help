@@ -42,13 +42,11 @@ exports.consumerSignup = async (req, res) => {
         let subject = "User Registered";
         let data = `<h1>Thank you for register in Medi Help</h1>`;
         const mailSent = await common.mail(email, subject, data);
-        if (mailSent) {
+        
           res.send({
-            success: true,
+            isSuccess: true,
             message: "User registered successfully please check your mail",
           });
-        }
-        console.log("User registered successfully please check your mail");
       } else {
         res.send({
           error: true,

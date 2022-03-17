@@ -2,6 +2,7 @@ const admin = require("../../modal/Admin/admin");
 var bcrypt = require("bcryptjs");
 var salt = bcrypt.genSaltSync(10);
 const common = require("../../Utility/common");
+var jwt = require("jsonwebtoken");
 
 exports.adminSignup = async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
@@ -28,12 +29,10 @@ exports.adminSignup = async (req, res) => {
           let subject = "User Registered";
           let data = `<h1>Thank you for register in Medi Help as an admin</h1>`;
           const mailSent = await common.mail(email, subject, data);
-          if (mailSent) {
             res.send({
               isSuccess: true,
               message: "User registered successfully please check your mail",
           });
-        }
         } else {
           res.send({ isSuccess:false,message: "Something went wrong" });
         }
@@ -55,5 +54,61 @@ exports.deleteAdmin = async (req, res, next) => {
     res.send({
       error: "Something went wrong",
     });
+  }
+};
+
+exports.adminLogin = async function (req, res, next) {
+  const data = JSON.parse(JSON.stringify(req.body))
+  console.log("data-->",data)
+  if (data) {
+    var email = data.email;
+    var password = data.password;
+    const isUserExist = await admin.findOne({
+      email: email,
+    });
+    if (isUserExist) {
+      // email match
+      bcrypt.compare(
+        password,
+        isUserExist.password,
+        async function (err, result) {
+          // result === true
+          if (result) {
+            //jwt
+            await jwt.sign(
+              {
+                data: isUserExist,
+              },
+              "mysecret",
+              {
+                expiresIn: 60 * 60,
+              },
+              (err, token) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  res.cookie("Admin", token, {
+                    expiresIn: new Date(Date.now() + 30000),
+                    httpOnly: true,
+                  });
+                  res.send({
+                    message: "login success",
+                    token:token
+                  });
+                }
+              }
+            );
+          } else {
+            res.send({
+              message: "Password not match",
+            });
+          }
+        }
+      );
+    } else {
+      res.send({
+        message: "user not found",
+      });
+    }
   }
 };

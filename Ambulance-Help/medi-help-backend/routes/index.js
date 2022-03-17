@@ -49,6 +49,7 @@ router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
 router.post("/delete-consumer", ConsumerController.deleteConsumer);
 router.post("/admin-signup", AdminController.adminSignup);
+router.post("/admin-login", AdminController.adminLogin);
 router.post("/delete-admin", AdminController.deleteAdmin);
 router.post("/add-ambulance", AmbulanceController.addAmbulance);
 module.exports = router;
