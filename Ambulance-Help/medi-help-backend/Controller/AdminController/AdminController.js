@@ -6,7 +6,7 @@ var jwt = require("jsonwebtoken");
 
 exports.adminSignup = async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
-  const isUserExist = await admin.findOne({name:data.hospitalName})
+  const isUserExist = await admin.findOne({hospitalName:data.hospitalName})
   console.log(data);
   if (!isUserExist) {
     bcrypt.genSalt(10, function (err, salt) {
@@ -112,3 +112,8 @@ exports.adminLogin = async function (req, res, next) {
     }
   }
 };
+
+exports.hospitalList = async (req,res) =>{
+  const hospital = await admin.find({});
+  res.send({data:hospital});
+}

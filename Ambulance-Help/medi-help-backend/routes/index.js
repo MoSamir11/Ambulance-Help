@@ -16,6 +16,8 @@ router.use(cors());
 
 const consumer = require("../modal/consumer/consumer");
 const admin = require("../modal/Admin/admin");
+const ambulance = require("../modal/Admin/ambulance");
+// const ambulance = require("../modal/Admin/ambulance");
 /* GET home page. */
 
 router.get("/", function (req, res, next) {
@@ -42,7 +44,18 @@ router.get("/admin-signup", async function (req, res, next) {
 router.get('/all-admin',async function(req,res){
   const adminData = await admin.find({});
   res.render(".././views/AdminArea/allAdmin",{admin:adminData});
-  // res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
+  res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
+})
+
+
+router.get('/all-hospital',async function(req,res){
+  const adminData = await admin.find({});
+  res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
+})
+
+router.get('/all-ambulance',async function(req,res){
+  const ambulances = await ambulance.find({});
+  res.render(".././views/AdminArea/allAmbulance",{ambulance:ambulances});
 })
 
 router.post("/consumer-signup", ConsumerController.consumerSignup);
@@ -52,4 +65,6 @@ router.post("/admin-signup", AdminController.adminSignup);
 router.post("/admin-login", AdminController.adminLogin);
 router.post("/delete-admin", AdminController.deleteAdmin);
 router.post("/add-ambulance", AmbulanceController.addAmbulance);
+router.post("/delete-ambulance", AmbulanceController.deleteAmbulance);
+// router.get("/hospital",AdminController.hospitalList);
 module.exports = router;
