@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container p-5">
+        <div class="row">
+            <div class="alert alert-danger" id="alert" style="display: none;">
+            </div>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Hospital Name</th>
+                    <th>Employee Name</th>
+                    <th>Employee ID</th>
+                    <th>Action</th>
+                </tr>
+                <%for(var i=0;i< staff.length;i++){%>
+                    <tr>
+                        <td class="name">
+                            <%=staff[i].hospitalName%>
+                        </td>
+                        <td class="company">
+                            <%=staff[i].employeeName%>
+                        </td>
+                        <td class="price">
+                            <%=staff[i].employeeId%>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                value="<%=staff[i]._id%>">Delete</button>
+                        </td>
+                    </tr>
+                    <%}%>
+            </table>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function (req, res) {
+        $(document).on('click', '.btn-danger', function (req, res) {
+            var id = $(this).val();
+            console.log(id);
+            var data = { id: id }
+            const takeConfirm = confirm("Are you sure want to delete");
+            if(!takeConfirm)
+            {
+                return
+            }
+            $.ajax({
+                url: '/delete-staff',
+                type: "POST",
+                data: data,
+                success: function (req, res) {
+                    if (res.success) {
+                        window.alert(res.message)
+                        window.location.reload();
+                    } else if (res.error) {
+                        alert(res.error)
+                        window.location.reload();
+                    }
+                }
+            })
+        })
+    })
+</script>
+</html>

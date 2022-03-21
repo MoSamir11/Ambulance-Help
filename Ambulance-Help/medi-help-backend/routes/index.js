@@ -10,6 +10,7 @@ const nodemailer = require("nodemailer");
 const ConsumerController = require("../Controller/ConsumerController/consumerController.js");
 const AdminController = require("../Controller/AdminController/AdminController");
 const AmbulanceController = require("../Controller/AdminController/AmbulanceController");
+const StaffController = require("../Controller/AdminController/StaffController");
 var cors = require('cors')
 
 router.use(cors());
@@ -17,6 +18,7 @@ router.use(cors());
 const consumer = require("../modal/consumer/consumer");
 const admin = require("../modal/Admin/admin");
 const ambulance = require("../modal/Admin/ambulance");
+const staff = require("../modal/Admin/staff");
 // const ambulance = require("../modal/Admin/ambulance");
 /* GET home page. */
 
@@ -58,6 +60,11 @@ router.get('/all-ambulance',async function(req,res){
   res.render(".././views/AdminArea/allAmbulance",{ambulance:ambulances});
 })
 
+router.get('/all-staff',async function(req,res){
+  const allStaff = await staff.find({});
+  res.render(".././views/AdminArea/allStaff",{staff:allStaff});
+})
+
 router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
 router.post("/delete-consumer", ConsumerController.deleteConsumer);
@@ -66,8 +73,11 @@ router.post("/admin-login", AdminController.adminLogin);
 router.post("/delete-admin", AdminController.deleteAdmin);
 router.post("/add-ambulance", AmbulanceController.addAmbulance);
 router.post("/delete-ambulance", AmbulanceController.deleteAmbulance);
-router.post("/add-staff", AmbulanceController.addStaff);
+router.post("/add-staff", StaffController.addStaff);
+router.post("/delete-staff", StaffController.deleteStaff);
+
 // router.get("/hospital",AdminController.hospitalList);
 router.get("/ambulanceList/:hospitalName", AmbulanceController.ambulanceList);
-router.get("/staffList/:hospitalName", AmbulanceController.staffList);
+router.get("/staffList/:hospitalName", StaffController.staffList);
+
 module.exports = router;

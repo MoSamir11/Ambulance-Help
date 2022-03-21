@@ -42,27 +42,5 @@ exports.ambulanceList = async(req,res,next)=>{
   res.send({isSuccess:true,message:'Data fetched successfully', data:list})
 }
 
-exports.addStaff = async (req, res) => {
-  const data = req.body;
-  console.log("5-->",data)
-  if (data) {
-    const createResponse = await staff.create({
-      hospitalName: data.hospitalName,
-      employeeName: data.employeeName,
-      employeeId: data.employeeId
-    });
-    if (createResponse) {
-      res.send({ isSuccess: true, message: "Ambulance added Successfully" });
-    } else {
-      req.send({ isSuccess: false, message: "Something went wrong" });
-    }
-  }
-};
 
-exports.staffList = async(req,res,next)=>{
-  const hospital = req.params.hospitalName;
-  console.log("62-->",hospital)
-  const list = await staff.find({hospitalName:hospital});
-  console.log(list)
-  res.send({isSuccess:true,message:'Data fetched successfully', data:list})
-}
+
