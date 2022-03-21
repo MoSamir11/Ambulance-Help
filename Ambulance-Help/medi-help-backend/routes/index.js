@@ -44,7 +44,7 @@ router.get("/admin-signup", async function (req, res, next) {
 router.get('/all-admin',async function(req,res){
   const adminData = await admin.find({});
   res.render(".././views/AdminArea/allAdmin",{admin:adminData});
-  res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
+  // res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
 })
 
 
@@ -66,5 +66,8 @@ router.post("/admin-login", AdminController.adminLogin);
 router.post("/delete-admin", AdminController.deleteAdmin);
 router.post("/add-ambulance", AmbulanceController.addAmbulance);
 router.post("/delete-ambulance", AmbulanceController.deleteAmbulance);
+router.post("/add-staff", AmbulanceController.addStaff);
 // router.get("/hospital",AdminController.hospitalList);
+router.get("/ambulanceList/:hospitalName", AmbulanceController.ambulanceList);
+router.get("/staffList/:hospitalName", AmbulanceController.staffList);
 module.exports = router;
