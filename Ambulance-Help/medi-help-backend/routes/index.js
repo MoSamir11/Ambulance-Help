@@ -63,7 +63,7 @@ router.get('/all-ambulance',async function(req,res){
 router.get('/all-staff',async function(req,res){
   const allStaff = await staff.find({});
   res.render(".././views/AdminArea/allStaff",{staff:allStaff});
-})
+})  
 
 router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
