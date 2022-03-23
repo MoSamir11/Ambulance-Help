@@ -12,7 +12,7 @@ exports.consumerSignup = async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
   console.log(data);
   const isUsrExist = await consumer.findOne({ phone: data.phone });
-  if (!data.otp && isUsrExist) {
+  if (!data.otp && !isUsrExist) {
     myOtp = Math.floor(Math.random() * 10000);
     console.log("27-->", myOtp);
     client.messages
@@ -67,7 +67,7 @@ exports.consumerSignup = async (req, res) => {
     }
   }else{
     res.send({
-      message: "User not found"
+      message: "User already exist"
     })
   }
 };
@@ -107,7 +107,8 @@ exports.consumerLogin = async (req, res) => {
       {
         user: {
           id: userExist._id,
-          name:userExist.name
+          name:userExist.name,
+          phone:userExist.phone
         },
       },
       "mysecret",
@@ -122,6 +123,7 @@ exports.consumerLogin = async (req, res) => {
           res.send({
             isSuccess:true,
             message: "login success",
+            token:token
           });
         }
       }
