@@ -35,7 +35,6 @@ exports.deleteAmbulance = async (req, res, next) => {
 
 exports.ambulanceList = async(req,res,next)=>{
   const hospital = req.params.hospitalName;
-  console.log("38-->",hospital)
 
   const list = await ambulance.find({hospitalName:hospital});
   console.log(list)
