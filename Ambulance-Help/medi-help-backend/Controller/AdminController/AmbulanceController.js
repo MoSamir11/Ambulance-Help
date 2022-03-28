@@ -42,4 +42,3 @@ exports.ambulanceList = async(req,res,next)=>{
 }
 
 
-
