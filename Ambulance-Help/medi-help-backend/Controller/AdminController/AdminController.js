@@ -114,6 +114,8 @@ exports.adminLogin = async function (req, res, next) {
 };
 
 exports.hospitalList = async (req,res) =>{
-  const hospital = await admin.find({});
-  res.send({data:hospital});
+  const city = req.params.address;
+  console.log("118-->",city);
+  const hospital = await admin.find({address:city});
+  res.send({isSuccess:true,length:hospital.length,data:hospital});
 }

@@ -45,8 +45,8 @@ router.get("/admin-signup", async function (req, res, next) {
 
 router.get('/all-admin',async function(req,res){
   const adminData = await admin.find({});
-  res.render(".././views/AdminArea/allAdmin",{admin:adminData});
-  // res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
+  // res.render(".././views/AdminArea/allAdmin",{admin:adminData});
+  res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
 })
 
 
@@ -65,6 +65,17 @@ router.get('/all-staff',async function(req,res){
   res.render(".././views/AdminArea/allStaff",{staff:allStaff});
 })  
 
+router.get('/all-admin/:address',async function(req,res){
+  const city = req.params.address;
+  const adminData = await admin.find({address:city});
+  if(admin)
+  {
+    res.send({message:"Data fetched Successfully",length:adminData.length,data:adminData})
+  }else{
+    res.send({message:"No Data available"})
+  }
+})
+
 router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
 router.post("/delete-consumer", ConsumerController.deleteConsumer);
@@ -76,7 +87,7 @@ router.post("/delete-ambulance", AmbulanceController.deleteAmbulance);
 router.post("/add-staff", StaffController.addStaff);
 router.post("/delete-staff", StaffController.deleteStaff);
 
-// router.get("/hospital",AdminController.hospitalList);
+router.get("/hospital/:address",AdminController.hospitalList);
 router.get("/ambulanceList/:hospitalName", AmbulanceController.ambulanceList);
 router.get("/staffList/:hospitalName", StaffController.staffList);
 
