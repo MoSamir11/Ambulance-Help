@@ -119,3 +119,16 @@ exports.hospitalList = async (req,res) =>{
   const hospital = await admin.find({address:city});
   res.send({isSuccess:true,length:hospital.length,data:hospital});
 }
+
+exports.ambulanceRequest = async(req,res)=>{
+  const data = req.body;
+  console.log("125-->",data);
+
+  const updateServiceProvider = await admin.updateOne({_id:data.hospitalId},{$push:{notification:data}})
+  const serviceProvider = await admin.findOne({_id:data.hospitalId});
+  if(updateServiceProvider)
+  {
+    console.log("Updated Successfully")
+  }
+  console.log("127-->",serviceProvider)
+}

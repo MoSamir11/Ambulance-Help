@@ -17,7 +17,7 @@ exports.addStaff = async (req, res) => {
     }
 };
   
-  exports.staffList = async(req,res,next)=>{
+exports.staffList = async(req,res,next)=>{
     const hospital = req.params.hospitalName;
     console.log("62-->",hospital)
     const list = await staff.find({hospitalName:hospital});

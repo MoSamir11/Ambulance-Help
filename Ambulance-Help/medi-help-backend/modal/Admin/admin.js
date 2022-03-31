@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const ObjectId = Schema.ObjectId;
 const adminSignupSchema = new Schema({
   hospitalName: {
     type: String,
@@ -42,6 +42,14 @@ const adminSignupSchema = new Schema({
     required: true,
     default: null,
   },
+  notification:[
+    {
+      consumerId:{type: String,required:true,default:null},
+      consumerName:{type:String,required:true,default:null},
+      consumerContact:{type:String,required:true,default:null},
+      consumerAddress:{type:String,required:true,default:null}
+    }
+  ],
   longitude: {
     type: Number,
     required: true,

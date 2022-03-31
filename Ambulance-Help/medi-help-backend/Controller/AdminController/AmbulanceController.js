@@ -34,10 +34,10 @@ exports.deleteAmbulance = async (req, res, next) => {
 };
 
 exports.ambulanceList = async(req,res,next)=>{
-  const hospital = req.params.hospitalName;
-
-  const list = await ambulance.find({hospitalName:hospital});
-  console.log(list)
+  const id = req.params.hospitalName;
+  console.log("38",id)
+  const list = await ambulance.find({_id:id});  
+  console.log("40-->",list)
   res.send({isSuccess:true,message:'Data fetched successfully', data:list})
 }
 
