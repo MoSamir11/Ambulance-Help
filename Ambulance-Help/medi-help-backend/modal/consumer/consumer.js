@@ -17,6 +17,13 @@ const consumerSignupSchema = new Schema({
     required: true,
     default: null,
   },
+  notification:[
+    {
+      hospitalName:{type:String,required:true,default:null},
+      driverName:{type:String,required:true,default:null},
+      driverContact:{type:Number,required:true,default:null}
+    }
+  ],
   userType: {
     type: String,
     required: true,

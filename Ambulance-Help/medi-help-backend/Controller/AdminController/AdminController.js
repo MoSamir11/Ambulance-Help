@@ -3,6 +3,7 @@ var bcrypt = require("bcryptjs");
 var salt = bcrypt.genSaltSync(10);
 const common = require("../../Utility/common");
 var jwt = require("jsonwebtoken");
+const consumer = require("../../modal/consumer/consumer");
 
 exports.adminSignup = async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
@@ -124,11 +125,25 @@ exports.ambulanceRequest = async(req,res)=>{
   const data = req.body;
   console.log("125-->",data);
 
-  const updateServiceProvider = await admin.updateOne({_id:data.hospitalId},{$push:{notification:data}})
-  const serviceProvider = await admin.findOne({_id:data.hospitalId});
+  const updateServiceProvider = await adminfindOne({_id:data.hospitalId}).updateOne({_id:data.hospitalId},{$push:{notification:data}})
   if(updateServiceProvider)
   {
     console.log("Updated Successfully")
   }
   console.log("127-->",serviceProvider)
+}
+
+exports.sendAmbulanceResponce = async(req,res)=>{
+  const data = req.body;
+  console.log("5-->",data);
+  const driver = await admin.findOne({notification:{_id:data.driver}})
+  console.log("driver",driver)
+  // const updateConsumerNotification = await consumer.findOne({_id:data.consumerId}).updateOne({_id:data.consumerId},{$push:{notification:{hospitalName:data.hospitalName,driverName:data.driverName,driverContact:data.driverContact}}});
+  // if(updateConsumerNotification)
+  // {
+  //     console.log("Notification inserted Successfully");
+  //     res.send({isSuccess:true,message:"Driver Detail sends t consumer"})
+  // }else{
+  //     res.send({message:"Something went wrong"})
+  // }
 }

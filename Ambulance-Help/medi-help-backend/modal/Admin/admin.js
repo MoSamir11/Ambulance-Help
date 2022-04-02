@@ -50,6 +50,19 @@ const adminSignupSchema = new Schema({
       consumerAddress:{type:String,required:true,default:null}
     }
   ],
+  ambulance:[
+    {
+      driverName:{type:String,required:true,default:null},
+      ambulanceNumber:{type:String,required:true,default:null},
+      driverContact:{type:Number,required:true,default:null}
+    }
+  ],
+  staff:[
+    {
+      employeeName:{type:String,required:true,default:null},
+      employeeId:{type:String,required:true,default:null}
+    }
+  ],
   longitude: {
     type: Number,
     required: true,
