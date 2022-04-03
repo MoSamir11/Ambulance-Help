@@ -15,4 +15,13 @@ exports.addAmbulance = async (req,res)=>{
   }
 }
 
-
+exports.deleteAmbulance = async (req,res)=>{
+  const data =JSON.parse(JSON.stringify(req.body));
+  console.log(data);
+  const updateResponce = await admin.updateOne({_id:data.hospitalId},{$pull:{"notification":{_id:data.id}}});
+  if(updateResponce)
+  {
+    res.send({isSuccess:true,message:"Notification deleted successfully"})
+    console.log("Deleted Successfully")
+  }
+}

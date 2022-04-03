@@ -4,7 +4,8 @@ var salt = bcrypt.genSaltSync(10);
 const common = require("../../Utility/common");
 var jwt = require("jsonwebtoken");
 const consumer = require("../../modal/consumer/consumer");
-
+const { isValidObjectId } = require("mongoose");  
+var ObjectId = require('mongodb').ObjectID;
 exports.adminSignup = async (req, res) => {
   const data = JSON.parse(JSON.stringify(req.body));
   const isUserExist = await admin.findOne({hospitalName:data.hospitalName})
@@ -125,25 +126,36 @@ exports.ambulanceRequest = async(req,res)=>{
   const data = req.body;
   console.log("125-->",data);
 
-  const updateServiceProvider = await adminfindOne({_id:data.hospitalId}).updateOne({_id:data.hospitalId},{$push:{notification:data}})
+  const updateServiceProvider = await admin.findOne({_id:data.hospitalId}).updateOne({_id:data.hospitalId},{$push:{notification:data}})
   if(updateServiceProvider)
   {
     console.log("Updated Successfully")
+    res.send({isSuccess:true,message:'Notification deleted successfully'})
   }
-  console.log("127-->",serviceProvider)
+  console.log("127-->",updateServiceProvider)
 }
 
 exports.sendAmbulanceResponce = async(req,res)=>{
   const data = req.body;
   console.log("5-->",data);
-  const driver = await admin.findOne({notification:{_id:data.driver}})
-  console.log("driver",driver)
-  // const updateConsumerNotification = await consumer.findOne({_id:data.consumerId}).updateOne({_id:data.consumerId},{$push:{notification:{hospitalName:data.hospitalName,driverName:data.driverName,driverContact:data.driverContact}}});
-  // if(updateConsumerNotification)
-  // {
-  //     console.log("Notification inserted Successfully");
-  //     res.send({isSuccess:true,message:"Driver Detail sends t consumer"})
-  // }else{
-  //     res.send({message:"Something went wrong"})
-  // }
+    const cond = {_id:data.hospitalId,'ambulance._id':{$eq:data.driver}};
+    const driver = await admin.find(cond,'ambulance');
+    const amb = driver[0].ambulance;
+    const result = await amb.filter(user=>user._id == data.driver);
+    console.log("148-->",result)
+    const data1={
+      hospitalName:data.hospitalName,
+      driverName:result[0].driverName,
+      driverContact:result[0].driverContact
+    };
+    console.log("150-->",data1) 
+  const updateConsumerNotification = await consumer.findOne({_id:data.consumerId}).updateOne({_id:data.consumerId},
+    {$push:{notification:data1}});
+  if(updateConsumerNotification)
+  {
+      console.log("Notification inserted Successfully");
+      res.send({isSuccess:true,message:"Driver Detail sends t consumer"})
+  }else{
+      res.send({message:"Something went wrong"})
+  }
 }

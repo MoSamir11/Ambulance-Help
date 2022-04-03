@@ -66,9 +66,9 @@ router.get('/all-hospital',async function(req,res){
   res.send({total:admin.length,message:"Data fetched successfully",data:adminData})
 })
 
-router.get('/all-ambulance',async function(req,res){
-  const ambulances = await ambulance.find({});
-  res.render(".././views/AdminArea/allAmbulance",{ambulance:ambulances});
+router.get('/all-notification',async function(req,res){
+  const ambulances = await admin.find({});
+  res.render(".././views/AdminArea/allNotification",{ambulance:ambulances});
 })
 
 router.get('/all-staff',async function(req,res){
@@ -95,7 +95,7 @@ router.post("/admin-signup", AdminController.adminSignup);
 router.post("/admin-login", AdminController.adminLogin);
 router.post("/delete-admin", AdminController.deleteAdmin);
 router.post("/add-ambulance", AmbulanceController.addAmbulance);
-router.post("/delete-ambulance", function(req,res){AmbulanceController.deleteAmbulance});
+router.post("/delete-ambulance", AmbulanceController.deleteAmbulance);
 router.post("/add-staff", StaffController.addStaff);
 router.post("/delete-staff", StaffController.deleteStaff);
 router.post("/notification",AdminController.ambulanceRequest);
