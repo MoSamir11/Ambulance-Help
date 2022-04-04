@@ -130,7 +130,7 @@ exports.ambulanceRequest = async(req,res)=>{
   if(updateServiceProvider)
   {
     console.log("Updated Successfully")
-    res.send({isSuccess:true,message:'Notification deleted successfully'})
+    res.send({isSuccess:true,message:'Request send successfully'})
   }
   console.log("127-->",updateServiceProvider)
 }

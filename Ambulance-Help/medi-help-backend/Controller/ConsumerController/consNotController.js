@@ -12,3 +12,14 @@ exports.consumerNotification = async(req,res)=>{
         res.send({message:"Something went wrong"})
     }
 }
+
+exports.deleteConsumerNotification = async (req,res)=>{
+    const data =JSON.parse(JSON.stringify(req.body));
+    console.log(data);
+    const updateResponce = await consumer.updateOne({_id:data.hospitalId},{$pull:{"notification":{_id:data.id}}});
+    if(updateResponce)
+    {
+      res.send({isSuccess:true,message:"Notification deleted successfully"})
+      console.log("Deleted Successfully")
+    }
+  }

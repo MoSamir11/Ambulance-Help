@@ -108,7 +108,8 @@ exports.consumerLogin = async (req, res) => {
         user: {
           id: userExist._id,
           name:userExist.name,
-          phone:userExist.phone
+          phone:userExist.phone,
+          notification:userExist.notification
         },
       },
       "mysecret",

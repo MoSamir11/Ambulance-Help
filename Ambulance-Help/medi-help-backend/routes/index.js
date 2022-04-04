@@ -11,6 +11,7 @@ const ConsumerController = require("../Controller/ConsumerController/consumerCon
 const AdminController = require("../Controller/AdminController/AdminController");
 const AmbulanceController = require("../Controller/AdminController/AmbulanceController");
 const StaffController = require("../Controller/AdminController/StaffController");
+const consNotController = require("../Controller/ConsumerController/consNotController")
 var cors = require('cors')
 
 router.use(cors());
@@ -71,6 +72,12 @@ router.get('/all-notification',async function(req,res){
   res.render(".././views/AdminArea/allNotification",{ambulance:ambulances});
 })
 
+router.get('/all-consumer-notification',async function(req,res){
+  console.log(JSON.parse(JSON.stringify(req.body)))
+  // const ambulances = await consumer.find({_id:req.body.id});
+  // res.render(".././views/ConsumerArea/allConsumerNotification",{ambulance:ambulances});
+})
+
 router.get('/all-staff',async function(req,res){
   const allStaff = await staff.find({});
   res.render(".././views/AdminArea/allStaff",{staff:allStaff});
@@ -89,6 +96,7 @@ router.get('/all-admin/:id',async function(req,res){
 
 router.post("/consumer-signup", ConsumerController.consumerSignup);
 router.post("/consumer-login", ConsumerController.consumerLogin);
+router.post("/delete-consumer-notification", consNotController.deleteConsumerNotification);
 router.post("/ambulance-responce",AdminController.sendAmbulanceResponce);
 router.post("/delete-consumer", ConsumerController.deleteConsumer);
 router.post("/admin-signup", AdminController.adminSignup);
