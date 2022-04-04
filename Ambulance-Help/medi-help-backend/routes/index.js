@@ -79,8 +79,8 @@ router.get('/all-consumer-notification',async function(req,res){
 })
 
 router.get('/all-staff',async function(req,res){
-  const allStaff = await staff.find({});
-  res.render(".././views/AdminArea/allStaff",{staff:allStaff});
+  const staffs = await admin.find({});
+  res.render(".././views/AdminArea/allStaff",{staff:staffs});
 })  
 
 router.get('/all-admin/:id',async function(req,res){

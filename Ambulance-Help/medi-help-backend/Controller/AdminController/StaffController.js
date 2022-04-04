@@ -24,7 +24,7 @@ exports.staffList = async(req,res,next)=>{
 
 exports.deleteStaff = async (req, res, next) => {
     var id = req.body.id;
-    const deleteResponse = await staff.deleteOne({ _id: id });
+    const deleteResponse = await admin.deleteOne({ _id: id });
     if (deleteResponse) {
       res.send({
         message: "Data deleted successfully",

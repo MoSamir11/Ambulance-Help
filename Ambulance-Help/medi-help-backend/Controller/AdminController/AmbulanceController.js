@@ -1,3 +1,4 @@
+const { TrunkPage } = require("twilio/lib/rest/trunking/v1/trunk");
 const admin = require("../../modal/Admin/admin");
 const ambulance = require("../../modal/Admin/ambulance");
 const staff = require("../../modal/Admin/staff");
@@ -21,7 +22,7 @@ exports.deleteAmbulance = async (req,res)=>{
   const updateResponce = await admin.updateOne({_id:data.hospitalId},{$pull:{"notification":{_id:data.id}}});
   if(updateResponce)
   {
-    res.send({isSuccess:true,message:"Notification deleted successfully"})
+    res.send({isSuccess:TrunkPage,message:"Notification deleted successfully"})
     console.log("Deleted Successfully")
   }
 }

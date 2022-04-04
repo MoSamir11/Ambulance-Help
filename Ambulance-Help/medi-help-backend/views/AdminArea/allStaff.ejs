@@ -15,28 +15,30 @@
             </div>
             <table class="table table-bordered">
                 <tr>
-                    <th>Hospital Name</th>
                     <th>Employee Name</th>
                     <th>Employee ID</th>
+                    <th>_id</th>
                     <th>Action</th>
                 </tr>
                 <%for(var i=0;i< staff.length;i++){%>
+                    <%for(var j=0;j< staff[i].staff.length;j++){%>
                     <tr>
                         <td class="name">
-                            <%=staff[i].hospitalName%>
+                            <%=staff[i].staff[j].employeeName%>
                         </td>
                         <td class="company">
-                            <%=staff[i].employeeName%>
+                            <%=staff[i].staff[j].employeeId%>
                         </td>
                         <td class="price">
-                            <%=staff[i].employeeId%>
+                            <%=staff[i].staff[j]._id%>
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger btn-sm"
-                                value="<%=staff[i]._id%>">Delete</button>
+                                value="<%=staff[i].staff[j]._id%>">Delete</button>
                         </td>
                     </tr>
                     <%}%>
+                <%}%>
             </table>
         </div>
     </div>
