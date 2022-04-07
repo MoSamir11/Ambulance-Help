@@ -37,8 +37,8 @@ router.get("/consumer-login", function (req, res, next) {
 
 router.get("/all-consumer", async function (req, res, next) {
   const users = await consumer.find({});
-  // res.render(".././views/ConsumerArea/AllCustomers", { product: users });
-  res.send({data:users})
+  res.render(".././views/ConsumerArea/AllCustomers", { product: users });
+  // res.send({data:users})
 });
 
 router.get("/admin-signup", async function (req, res, next) {

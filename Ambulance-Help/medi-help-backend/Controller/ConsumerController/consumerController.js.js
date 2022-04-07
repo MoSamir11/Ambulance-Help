@@ -109,7 +109,7 @@ exports.consumerLogin = async (req, res) => {
           id: userExist._id,
           name:userExist.name,
           phone:userExist.phone,
-          notification:userExist.notification
+          notification:userExist.notification,
         },
       },
       "mysecret",

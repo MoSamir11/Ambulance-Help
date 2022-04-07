@@ -1,5 +1,4 @@
 const admin = require("../../modal/Admin/admin");
-const staff = require("../../modal/Admin/staff");
 
 exports.addStaff = async (req,res)=>{
   const data = req.body;
@@ -23,15 +22,12 @@ exports.staffList = async(req,res,next)=>{
 }
 
 exports.deleteStaff = async (req, res, next) => {
-    var id = req.body.id;
-    const deleteResponse = await admin.deleteOne({ _id: id });
-    if (deleteResponse) {
-      res.send({
-        message: "Data deleted successfully",
-      });
-    } else {
-      res.send({
-        error: "Something went wrong",
-      });
+    const data = JSON.parse(JSON.stringify(req.body));
+    console.log(data);
+    const updateResponce = await admin.updateOne({_id:data.hospitalId},{$pull:{"staff":{_id:data.id}}});
+    if(updateResponce){
+      res.send({message:"Data deleted successfully"})
+    }else{
+      res.send({message:"something went wrong"})
     }
 };

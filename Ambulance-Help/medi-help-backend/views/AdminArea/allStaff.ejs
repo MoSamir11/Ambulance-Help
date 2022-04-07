@@ -48,7 +48,7 @@
         $(document).on('click', '.btn-danger', function (req, res) {
             var id = $(this).val();
             console.log(id);
-            var data = { id: id }
+            var data = { id: id,hospitalId:'6235c8399dac947357a40ac6' }
             const takeConfirm = confirm("Are you sure want to delete");
             if(!takeConfirm)
             {
