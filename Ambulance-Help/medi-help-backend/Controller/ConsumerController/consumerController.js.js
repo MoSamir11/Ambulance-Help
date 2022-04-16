@@ -101,9 +101,14 @@ exports.consumerLogin = async (req, res) => {
       });
   } else if(isUserExist && data.otp){
     const data = req.body;
+    if(data.otp!=myOtp)
+    {
+      res.send({message:"OTP not match"});
+      return
+    }
     console.log("104 data-->", data);
     const userExist = await consumer.findOne({ phone: data.phone });
-    await jwt.sign(
+    await jwt.sign( 
       {
         user: {
           id: userExist._id,

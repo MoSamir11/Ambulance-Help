@@ -37,8 +37,8 @@ router.get("/consumer-login", function (req, res, next) {
 
 router.get("/all-consumer", async function (req, res, next) {
   const users = await consumer.find({});
-  res.render(".././views/ConsumerArea/AllCustomers", { product: users });
-  // res.send({data:users})
+  // res.render(".././views/ConsumerArea/AllCustomers", { product: users });
+  res.send({data:users})
 });
 
 router.get("/admin-signup", async function (req, res, next) {
@@ -74,8 +74,9 @@ router.get('/all-notification',async function(req,res){
 
 router.get('/all-consumer-notification',async function(req,res){
   console.log(JSON.parse(JSON.stringify(req.body)))
-  // const ambulances = await consumer.find({_id:req.body.id});
-  // res.render(".././views/ConsumerArea/allConsumerNotification",{ambulance:ambulances});
+  const ambulances = await consumer.find();
+  // console.log("78-->",ambulances[0].notification)
+  res.render(".././views/ConsumerArea/allConsumerNotification",{ambulance:ambulances});
 })
 
 router.get('/all-staff',async function(req,res){
