@@ -55,9 +55,9 @@
         $(document).on('click', '.btn-danger', function (req, res) {
             var id = $(this).val();
             console.log(id);
-            var data = { id: id,hospitalId:"6259816949ca7cb81423aaa5" }
+            var data = { id: id,hospitalId:"623eb5ba395fd792bd2b4b8a" }
             $.ajax({
-                url: '/delete-ambulance',
+                url: '/delete-notification',
                 type: "POST",
                 data: data,
                 success: function (req, res) {

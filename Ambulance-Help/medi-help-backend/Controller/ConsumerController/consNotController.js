@@ -15,11 +15,17 @@ exports.consumerNotification = async(req,res)=>{
 
 exports.deleteConsumerNotification = async (req,res)=>{
     const data ='624da65497df00fb2d8a1ab7';
+    console.log(JSON.parse(JSON.stringify(req.body)))
     console.log(data);
-    const updateResponce = await consumer.updateOne({_id:data},{$pull:{"notification":{_id:'625981da49ca7cb81423aab4'}}});
+    const updateResponce = await consumer.updateOne({_id:data},{$pull:{"notification":{_id:req.body.id}}});
     if(updateResponce)
     {
       res.send({isSuccess:true,message:"Notification deleted successfully"})
       console.log("Deleted Successfully")
     }
-  }
+}
+
+exports.getConsumerDetail = async (req,res)=>{
+    const id = req.params;
+    console.log(id);
+}

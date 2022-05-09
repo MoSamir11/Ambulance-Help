@@ -18,8 +18,6 @@ router.use(cors());
 
 const consumer = require("../modal/consumer/consumer");
 const admin = require("../modal/Admin/admin");
-const ambulance = require("../modal/Admin/ambulance");
-const staff = require("../modal/Admin/staff");
 // const ambulance = require("../modal/Admin/ambulance");
 /* GET home page. */
 
@@ -47,6 +45,7 @@ router.get("/admin-signup", async function (req, res, next) {
 
 router.get('/all-admin',async function(req,res){
   const adminData = await admin.find({});
+  // res.render(".././views/AdminArea/allAdmin",{admin:adminData})
   res.send({isSuccess:true,total:admin.length,message:"Data fetched successfully",data:adminData})
 })
 
@@ -104,7 +103,7 @@ router.post("/admin-signup", AdminController.adminSignup);
 router.post("/admin-login", AdminController.adminLogin);
 router.post("/delete-admin", AdminController.deleteAdmin);
 router.post("/add-ambulance", AmbulanceController.addAmbulance);
-router.post("/delete-ambulance", AmbulanceController.deleteAmbulance);
+router.post("/delete-notification", AmbulanceController.deleteNotification);
 router.post("/add-staff", StaffController.addStaff);
 router.post("/delete-staff", StaffController.deleteStaff);
 router.post("/notification",AdminController.ambulanceRequest);
@@ -112,5 +111,6 @@ router.get("/hospital/:address",AdminController.hospitalList);
 router.post("/addAmbulance",AmbulanceController.addAmbulance)
 
 router.get("/staffList/:id", StaffController.staffList);
+router.get("/consumerList/:id", consNotController.getConsumerDetail);
 
 module.exports = router;

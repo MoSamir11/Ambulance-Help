@@ -1,7 +1,5 @@
 const { TrunkPage } = require("twilio/lib/rest/trunking/v1/trunk");
 const admin = require("../../modal/Admin/admin");
-const ambulance = require("../../modal/Admin/ambulance");
-const staff = require("../../modal/Admin/staff");
 
 exports.addAmbulance = async (req,res)=>{
   const data = req.body;
@@ -16,13 +14,13 @@ exports.addAmbulance = async (req,res)=>{
   }
 }
 
-exports.deleteAmbulance = async (req,res)=>{
+exports.deleteNotification = async (req,res)=>{
   const data =JSON.parse(JSON.stringify(req.body));
   console.log(data);
   const updateResponce = await admin.updateOne({_id:data.hospitalId},{$pull:{"notification":{_id:data.id}}});
   if(updateResponce)
   {
-    res.send({isSuccess:TrunkPage,message:"Notification deleted successfully"})
+    res.send({isSuccess:true,message:"Notification deleted successfully"})
     console.log("Deleted Successfully")
   }
 }
