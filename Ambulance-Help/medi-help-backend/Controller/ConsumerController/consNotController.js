@@ -27,5 +27,9 @@ exports.deleteConsumerNotification = async (req,res)=>{
 
 exports.getConsumerDetail = async (req,res)=>{
     const id = req.params;
-    console.log(id);
+    console.log("30-->",id);
+    const users = await consumer.findOne(id);
+    if(users){
+        res.send({isSuccess:true,message:"Data fetched successfully",data:users})
+    }
 }

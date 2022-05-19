@@ -55,7 +55,6 @@ router.get('/adminList/:id',async function(req,res){
   const adminData = await admin.findOne({_id:id});
   if(adminData){
     res.send({isSuccess:true,data:adminData})
-    // console.log("58-->",adminData)
   } else{
     res.send({message:'Something went wrong'})
   }
