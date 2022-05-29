@@ -137,12 +137,14 @@ exports.ambulanceRequest = async(req,res)=>{
 
 exports.sendAmbulanceResponce = async(req,res)=>{
   const data = req.body;
-  console.log("5-->",data);
+  // console.log("5-->",data);
     const cond = {_id:data.hospitalId,'ambulance._id':{$eq:data.driver}};
     const driver = await admin.find(cond,'ambulance');
+    console.log("143-->",driver)
     const amb = driver[0].ambulance;
+    console.log("145-->",amb);
     const result = await amb.filter(user=>user._id == data.driver);
-    console.log("148-->",result)
+    // console.log("148-->",result)
     const data1={
       hospitalName:data.hospitalName,
       driverName:result[0].driverName,
