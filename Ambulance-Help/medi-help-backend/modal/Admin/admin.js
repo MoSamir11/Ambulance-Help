@@ -12,6 +12,11 @@ const adminSignupSchema = new Schema({
     required: true,
     default: null,
   },
+  specialist: {
+    type: String,
+    required: true,
+    default: null,
+  },
   email: {
     type: String,
     required: true,

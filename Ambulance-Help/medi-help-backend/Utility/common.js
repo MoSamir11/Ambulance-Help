@@ -13,7 +13,7 @@ exports.mail = async (email, subject, data) => {
     },
   });
   var mailOption = {
-    from: "medicalhelp@gmail.com",
+    from: "mymediambulance@gmail.com",
     to: email,
     subject: subject,
     html: data,

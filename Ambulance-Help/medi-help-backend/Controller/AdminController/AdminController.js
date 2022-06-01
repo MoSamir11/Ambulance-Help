@@ -16,6 +16,7 @@ exports.adminSignup = async (req, res) => {
         const createResponce = await admin.create({
           hospitalName: data.hospitalName,
           phone: data.phone,
+          specialist:data.specialist,
           email:data.email,
           userType:'Service Provider',
           address:data.address,
@@ -25,7 +26,6 @@ exports.adminSignup = async (req, res) => {
           longitude:data.longitude,
           createdOn: Date.now()
         });
-        console.log("23-->",createResponce);
         if (createResponce) {
           let email = createResponce.email;
           let subject = "User Registered";
